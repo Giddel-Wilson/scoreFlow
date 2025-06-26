@@ -36,7 +36,9 @@ production
 2. **Build configuration** - Updated `vercel.json` with proper settings  
 3. **Package lock** - Regenerated `package-lock.json` with clean dependencies
 4. **Vercel adapter** - Switched from adapter-auto to adapter-vercel
-5. **Build verification** - Tested locally and working ✅
+5. **Environment variables** - Added documentation for Vercel env var setup
+6. **Prisma generation** - Added `postinstall` script to generate Prisma client on Vercel
+7. **Build verification** - Tested locally and working ✅
 
 ## 🚀 After Setting Environment Variables
 
