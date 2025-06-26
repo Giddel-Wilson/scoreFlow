@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Department {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  courses  Course[]
+  students Student[]
+  users    User[]
+
+  @@map("departments")
+}
+
+model User {
+  id                Int                @id @default(autoincrement())
+  name              String
+  email             String             @unique
+  passwordHash      String             @map("password_hash")
+  role              Role
+  departmentId      Int?               @map("department_id")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  auditLogs         AuditLog[]
+  caScores          CAScore[]
+  courseAssignments CourseAssignment[]
+  department        Department?        @relation(fields: [departmentId], references: [id])
+
+  @@map("users")
+}
+
+model Course {
+  id                Int                @id @default(autoincrement())
+  code              String
+  title             String
+  level             Int
+  semester          Int
+  session           String
+  departmentId      Int                @map("department_id")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  caScores          CAScore[]
+  courseAssignments CourseAssignment[]
+  department        Department         @relation(fields: [departmentId], references: [id])
+
+  @@unique([code, session])
+  @@map("courses")
+}
+
+model CourseAssignment {
+  id       Int    @id @default(autoincrement())
+  userId   Int    @map("user_id")
+  courseId Int    @map("course_id")
+  course   Course @relation(fields: [courseId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
+
+  @@unique([userId, courseId])
+  @@map("course_assignments")
+}
+
+model Student {
+  id           Int        @id @default(autoincrement())
+  name         String
+  regNo        String     @unique @map("reg_no")
+  departmentId Int        @map("department_id")
+  level        Int
+  activeStatus Boolean    @default(true) @map("active_status")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  caScores     CAScore[]
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  @@map("students")
+}
+
+model CAScore {
+  id              Int      @id @default(autoincrement())
+  courseId        Int      @map("course_id")
+  studentId       Int      @map("student_id")
+  score           Float?
+  isSubmitted     Boolean  @default(false) @map("is_submitted")
+  submittedBy     Int      @map("submitted_by")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  course          Course   @relation(fields: [courseId], references: [id])
+  student         Student  @relation(fields: [studentId], references: [id])
+  submittedByUser User     @relation(fields: [submittedBy], references: [id])
+
+  @@map("ca_scores")
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  action    String
+  target    String
+  details   Json?
+  timestamp DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  email     String
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("password_reset_tokens")
+}
+
+enum Role {
+  LECTURER
+  HOD
+  ADMIN
+}
