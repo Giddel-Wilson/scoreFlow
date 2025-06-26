@@ -35,7 +35,7 @@ production
 1. **Rollup dependency issue** - Updated `.npmrc` to handle optional dependencies
 2. **Build configuration** - Updated `vercel.json` with proper settings  
 3. **Package lock** - Regenerated `package-lock.json` with clean dependencies
-4. **Vercel adapter** - Switched from adapter-auto to adapter-vercel
+4. **Vercel adapter** - Updated to adapter-vercel v5.7.2 for SvelteKit v2 compatibility
 5. **Environment variables** - Added documentation for Vercel env var setup
 6. **Prisma generation** - Added `postinstall` and `prebuild` scripts to generate Prisma client on Vercel
 7. **Build verification** - Tested locally and working ✅
