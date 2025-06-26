@@ -1,52 +1,69 @@
 # Vercel Deployment Guide for ScoreFlow
 
-## ✅ Build Issues Fixed!
+## 🚨 IMPORTANT: Environment Variables Setup
 
-The following issues have been resolved:
+**The build is failing because environment variables are not configured in Vercel.**
+
+### ⚠️ **Required Action: Set Environment Variables in Vercel**
+
+1. **Go to your Vercel project dashboard**
+   - Visit: https://vercel.com/dashboard
+   - Select your `scoreFlow` project
+
+2. **Navigate to Settings → Environment Variables**
+   
+3. **Add these environment variables:**
+
+```bash
+DATABASE_URL
+postgresql://neondb_owner:npg_3QwHi9cpZkLr@ep-rapid-band-a8ow1wxd-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require
+
+JWT_SECRET
+your-super-secret-jwt-key-here-change-in-production-12345
+
+NODE_ENV
+production
+```
+
+4. **Apply to all environments** (Production, Preview, Development)
+
+5. **Redeploy after setting environment variables**
+
+## ✅ Build Issues Previously Fixed:
 
 ### 🔧 Fixed Issues:
 1. **Rollup dependency issue** - Updated `.npmrc` to handle optional dependencies
-2. **Build configuration** - Updated `vercel.json` with proper settings
+2. **Build configuration** - Updated `vercel.json` with proper settings  
 3. **Package lock** - Regenerated `package-lock.json` with clean dependencies
-4. **Build verification** - Tested locally and working ✅
+4. **Vercel adapter** - Switched from adapter-auto to adapter-vercel
+5. **Build verification** - Tested locally and working ✅
 
-## 🚀 Ready for Deployment
-
-Your ScoreFlow application is now ready for Vercel deployment with these fixes:
-
-### Environment Variables Required:
-```bash
-DATABASE_URL=postgresql://neondb_owner:npg_3QwHi9cpZkLr@ep-rapid-band-a8ow1wxd-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require
-
-JWT_SECRET=your-super-secret-jwt-key-here-change-in-production
-
-NODE_ENV=production
-```
+## 🚀 After Setting Environment Variables
 
 ### Build Configuration:
 - **Framework**: SvelteKit (auto-detected)
 - **Build Command**: `npm run build`
-- **Install Command**: `npm ci`
+- **Install Command**: `npm ci`  
 - **Output Directory**: `build`
 - **Node.js Runtime**: 18.x
 
-## 🔄 Next Steps:
+## 🔄 Steps After Environment Variables Are Set:
 
-1. **Redeploy on Vercel**
-   - Go to your Vercel dashboard
-   - Trigger a new deployment
-   - The build should now complete successfully
+1. **Trigger Redeploy**
+   - Go to Vercel dashboard → Deployments
+   - Click "Redeploy" on the latest deployment
+   - OR push a new commit to trigger deployment
 
 2. **Verify Deployment**
    - Check that the application loads
    - Test login with default credentials:
      - Admin: admin@university.edu / admin123
-     - HOD: hod.cs@university.edu / hod123
+     - HOD: hod.cs@university.edu / hod123  
      - Lecturer: lecturer@university.edu / lecturer123
 
 3. **Database Connection**
    - Your Neon PostgreSQL database is already configured
-   - No additional setup needed
+   - No additional database setup needed
 
 ## 🎯 Expected Build Output:
 - Build should complete in ~2-3 minutes
