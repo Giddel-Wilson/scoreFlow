@@ -90,9 +90,8 @@
 					<div class="md:hidden flex items-center space-x-2">
 						<!-- Mobile user info - simplified -->
 						<div class="flex items-center text-sm text-gray-500">
-							<span class="font-medium truncate max-w-20">{user?.name?.split(' ')[0]}</span>
 							<span class="ml-1 px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded text-xs uppercase">
-								{user?.role === 'LECTURER' ? 'L' : user?.role === 'ADMIN' ? 'A' : user?.role === 'HOD' ? 'H' : user?.role}
+								{user?.role === 'LECTURER' ? 'LECTURER' : user?.role === 'ADMIN' ? 'ADMIN' : user?.role === 'HOD' ? 'HOD' : user?.role}
 							</span>
 						</div>
 						<button
