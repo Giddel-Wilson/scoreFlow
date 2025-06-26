@@ -1,0 +1,5 @@
+name,regno,level,department,score,status
+David Wilson,CS/2022/005,300,Computer Science,28,ACTIVE
+Sarah Johnson,CS/2022/006,300,Computer Science,25.5,ACTIVE
+Michael Brown,CS/2022/007,300,Computer Science,,ACTIVE
+Lisa Anderson,CS/2022/008,300,Computer Science,22,INACTIVE
