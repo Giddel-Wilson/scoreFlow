@@ -1,21 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { Home, FileBarChart, LogOut } from 'lucide-svelte';
-
-	let { children } = $props();
-
-	const navigation = [
-		{ name: 'Dashboard', href: '/hod', icon: Home },
-		{ name: 'Reports', href: '/hod/reports', icon: FileBarChart }
-	];
-
-	function isActive(href: string) {
-		return $page.url.pathname === href;
-	}
-</script>
-
-<script lang="ts">
-	import { page } from '$app/stores';
 	import { Home, FileBarChart, LogOut, Menu, X } from 'lucide-svelte';
 
 	let { children } = $props();
